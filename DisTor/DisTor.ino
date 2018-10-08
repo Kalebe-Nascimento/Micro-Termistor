@@ -1,34 +1,30 @@
 
-
-#include <LiquidCrystal.h>
-
 #include <Thermistor.h>
-
-Thermistor temp(0);
-
+#include <LiquidCrystal.h>
+ 
+Thermistor temp(1); 
+ 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
-
+ 
 void setup() {
-  // put your setup code here, to run once:
 Serial.begin(9600);
-
-int temperature = temp.getTemp();
-
-  lcd.begin(16,2);
-  lcd.setCursor (0,0);
-  lcd.print("Temperatura eh");
-   lcd.setCursor (0,1);
-   lcd.print(temperature);
-    lcd.print("C");
-   
-
- 
+lcd.begin(16, 2);
 }
-
-void loop() {
-  // put your main code here, to run repeatedly:
-
-
-
  
+void loop() {
+
+float temperature = temp.getTemp(); 
+
+Serial.print("Temperatura: ");
+Serial.print(temperature);
+Serial.println("°C");
+ 
+//imprimindo no LCD
+lcd.setCursor(0,0); 
+lcd.print("Temp = ");
+lcd.print(temperature);
+lcd.write(B11011111); 
+lcd.print("C");
+ 
+delay(1000);
 }
